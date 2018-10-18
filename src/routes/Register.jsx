@@ -35,37 +35,35 @@ class Register extends React.Component {
     })
 
     return (
-      <Container>
+      <Container text>
         <Header as='h2'>Register</Header>
         <Form onSubmit={this.handleSubmit}>
-          <Form.Group>
-            <Form.Input
-            // red the box if have error message
-              error={!!usernameError}
-              placeholder='Username' 
-              name='username' 
-              value={username} 
-              onChange={this.handleChange} 
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Input
-              error={!!emailError}
-              placeholder='Email'
-              name='email'
-              value={email}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Input
-              error={!!passwordError}
-              placeholder='Password'
-              name='password'
-              value={password}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
+          <Form.Input
+          // red the box if have error message
+            error={!!usernameError}
+            label='User Name'
+            placeholder='Username' 
+            name='username' 
+            value={username}
+            onChange={this.handleChange} 
+          />
+          <Form.Input
+            error={!!emailError}
+            label='Email'
+            placeholder='Email'
+            name='email'
+            value={email}
+            onChange={this.handleChange}
+          />
+          <Form.Input
+            error={!!passwordError}
+            label='Password'
+            placeholder='Password'
+            name='password'
+            type='password'
+            value={password}
+            onChange={this.handleChange}
+          />
           <Form.Button content='Submit' />
         </Form>
         {(usernameError || emailError || passwordError) ? 
