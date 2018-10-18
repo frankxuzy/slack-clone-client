@@ -12,6 +12,7 @@ class Register extends React.Component {
   })
 
   handleSubmit = async () => {
+    this.setState({usernameError: '', emailError: '', passwordError: ''})
     const {username, email, password} = this.state
     // the return obj of mutation from server side {data: {register: ...}}
     const response = await this.props.mutate({
@@ -33,6 +34,8 @@ class Register extends React.Component {
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
             <Form.Input
+            // red the box if have error message
+              error={!!usernameError}
               placeholder='Username' 
               name='username' 
               value={username} 
@@ -41,6 +44,7 @@ class Register extends React.Component {
           </Form.Group>
           <Form.Group>
             <Form.Input
+              error={!!emailError}
               placeholder='Email'
               name='email'
               value={email}
@@ -49,6 +53,7 @@ class Register extends React.Component {
           </Form.Group>
           <Form.Group>
             <Form.Input
+              error={!!passwordError}
               placeholder='Password'
               name='password'
               value={password}
