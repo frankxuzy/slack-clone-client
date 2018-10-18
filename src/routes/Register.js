@@ -1,7 +1,7 @@
 import React from 'react';
 import {graphql} from 'react-apollo';
 import {userRegister} from '../query/query';
-import { Form } from 'semantic-ui-react';
+import { Container, Header, Form, Message } from 'semantic-ui-react';
 
 
 class Register extends React.Component {
@@ -29,8 +29,14 @@ class Register extends React.Component {
   }
   render () {
     const { username, email, password, usernameError, emailError, passwordError} = this.state
+    const errorList = [usernameError, emailError, passwordError]
+    const returnList = errorList.filter(errorMsg => {
+      return errorMsg.length > 0
+    })
+
     return (
-      <div>
+      <Container>
+        <Header as='h2'>Register</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
             <Form.Input
@@ -62,7 +68,13 @@ class Register extends React.Component {
           </Form.Group>
           <Form.Button content='Submit' />
         </Form>
-      </div>
+        {(usernameError || emailError || passwordError) ? 
+        <Message
+          error
+          header='There was some errors with your submission'
+          list={returnList}
+        /> : null}
+      </Container>
     )
   }
 }
