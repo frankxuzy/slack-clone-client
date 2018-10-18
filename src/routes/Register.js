@@ -12,10 +12,11 @@ class Register extends React.Component {
   })
 
   handleSubmit = async () => {
-    console.log(this.props)
-    await this.props.mutate({
+    // the return obj of mutation from server side {data: {register: ...}}
+    const response = await this.props.mutate({
       variables: {...this.state}
     })
+    console.log(response)
   }
   render () {
     const { username, email, password} = this.state
