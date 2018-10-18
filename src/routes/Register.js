@@ -5,26 +5,34 @@ import { Form } from 'semantic-ui-react';
 
 
 class Register extends React.Component {
-  state = {username: '', email: '', password: ''}
+  state = {username: '', email: '', password: '', usernameError: '', emailError: '', passwordError: ''}
 
   handleChange = (e) => this.setState({
     [e.target.name]: e.target.value
   })
 
   handleSubmit = async () => {
+    const {username, email, password} = this.state
     // the return obj of mutation from server side {data: {register: ...}}
     const response = await this.props.mutate({
-      variables: {...this.state}
+      variables: {username, email, password}
     })
-    console.log(response)
+    const {ok, errors} = response.data.register
+    if(ok) {
+      this.props.history.push('/')
+    } else {
+      errors.forEach(error => {
+        this.setState({[`${error.path}Error`]: error.message})
+      });
+    }
   }
   render () {
-    const { username, email, password} = this.state
+    const { username, email, password, usernameError, emailError, passwordError} = this.state
     return (
       <div>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
-            <Form.Input 
+            <Form.Input
               placeholder='Username' 
               name='username' 
               value={username} 
