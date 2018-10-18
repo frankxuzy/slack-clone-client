@@ -1,6 +1,6 @@
 import React from 'react';
 import {graphql } from 'react-apollo';
-import {gql} from 'apollo-boost';
+import {allUsersQuery} from '../query/query'
 
 const Home = ({ data: { loading, allUsers } }) => (
   <div>
@@ -8,13 +8,5 @@ const Home = ({ data: { loading, allUsers } }) => (
   </div>
 );
 
-const allUsersQuery = gql`
-{
-  allUsers {
-    id
-    email
-  }
-}
-`
 
 export default graphql(allUsersQuery)(Home);

@@ -1,24 +1,24 @@
-import React from 'react'
-import { Form } from 'semantic-ui-react'
+import React from 'react';
+import {graphql} from 'react-apollo';
+import {userRegister} from '../query/query';
+import { Form } from 'semantic-ui-react';
 
 
 class Register extends React.Component {
-  state = {username: '', email: '', password: '', submittedName: '', submittedEmail: '', submittedPassowrd: ''}
+  state = {username: '', email: '', password: ''}
 
   handleChange = (e) => this.setState({
     [e.target.name]: e.target.value
   })
 
-  handleSubmit = () => {
-    const {username, email, password} = this.state
-    this.setState({
-      submittedName: username,
-      submittedEmail: email,
-      submittedPassowrd: password
+  handleSubmit = async () => {
+    console.log(this.props)
+    await this.props.mutate({
+      variables: {...this.state}
     })
   }
   render () {
-    const { username, email, password, submittedName, submittedEmail, submittedPassowrd} = this.state
+    const { username, email, password} = this.state
     return (
       <div>
         <Form onSubmit={this.handleSubmit}>
@@ -48,14 +48,9 @@ class Register extends React.Component {
           </Form.Group>
           <Form.Button content='Submit' />
         </Form>
-        <strong>onChange:</strong>
-        <pre>{JSON.stringify({ username, email, password }, null, 2)}</pre>
-        <strong>onSubmit:</strong>
-        <pre>{JSON.stringify({ submittedName, submittedEmail, submittedPassowrd }, null, 2)}</pre>
       </div>
-      
     )
   }
 }
 
-export default Register
+export default graphql(userRegister)(Register)
