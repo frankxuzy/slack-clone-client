@@ -1,4 +1,4 @@
-import {gql} from 'apollo-boost';
+import { gql } from 'apollo-boost';
 
 export const allUsersQuery = gql`
 {
@@ -19,7 +19,7 @@ mutation($username: String!, $email: String!, $password: String!){
     }
   }
 }
-`
+`;
 
 export const userLogin = gql`
 mutation ($email: String!, $password: String!){
@@ -33,4 +33,4 @@ mutation ($email: String!, $password: String!){
     }
   }
 }
-`
+`;

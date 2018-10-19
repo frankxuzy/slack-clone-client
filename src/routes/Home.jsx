@@ -1,6 +1,6 @@
 import React from 'react';
-import {graphql } from 'react-apollo';
-import {allUsersQuery} from '../query/query'
+import { graphql } from 'react-apollo';
+import { allUsersQuery } from '../query/query';
 
 const Home = ({ data: { loading, allUsers } }) => (
   <div>

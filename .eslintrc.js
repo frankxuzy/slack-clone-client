@@ -11,6 +11,9 @@ module.exports = {
     "env": {
         "browser": true,
         "node": true
+    },
+    parser: "babel-eslint",
+    env: {
+        browser: 1
     }
-
 };
