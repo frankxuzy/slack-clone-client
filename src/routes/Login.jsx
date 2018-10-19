@@ -16,7 +16,8 @@ class Login extends React.Component {
     extendObservable(this, {
       email: '',
       password: '',
-      errorList: [],
+      emailError: '',
+      passwordError: '',
     });
   }
 
@@ -26,31 +27,46 @@ class Login extends React.Component {
   }
 
   handleSubmit = async () => {
-    this.errorList = [];
+    this.emailError = '';
+    this.passwordError = '';
     const { email, password } = this;
-    const { mutate } = this.props;
+    const { mutate, history } = this.props;
     const loginResponse = await mutate({
       variables: { email, password },
     });
     const {
       errors, ok, token, refreshToken,
     } = loginResponse.data.login;
+
     if (ok) {
       localStorage.setItem('token', token);
       localStorage.setItem('refreshToken', refreshToken);
+      history.push('/');
     } else {
-      this.errorList = _.pick(errors, 'message');
-      console.log(errors, this.errorList);
+      errors.forEach(({ path, message }) => {
+        this[`${path}Error`] = message;
+      });
+      console.log(this);
     }
   }
 
   render() {
-    const { email, password, errorList } = this;
+    const {
+      email, password, emailError, passwordError,
+    } = this;
+    const errorList = [];
+    if (emailError) {
+      errorList.push(emailError);
+    }
+    if (passwordError) {
+      errorList.push(passwordError);
+    }
     return (
       <Container text>
         <Header as="h2">Login</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
+            error={!!emailError}
             placeholder="Email"
             label="Email"
             name="email"
@@ -58,6 +74,7 @@ class Login extends React.Component {
             onChange={this.handleChange}
           />
           <Form.Input
+            error={!!passwordError}
             placeholder="Password"
             label="Password"
             name="password"
@@ -67,7 +84,7 @@ class Login extends React.Component {
           />
           <Form.Button content="Submit" />
         </Form>
-        {(errorList.length !== 0)
+        {(errorList.length)
           ? (
             <Message
               error

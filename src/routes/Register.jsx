@@ -72,7 +72,7 @@ class Register extends React.Component {
           />
           <Form.Button content="Submit" />
         </Form>
-        {(usernameError || emailError || passwordError)
+        {returnList.length
           ? (
             <Message
               error
