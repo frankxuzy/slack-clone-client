@@ -53,12 +53,12 @@ class CreateTeam extends React.Component {
     }
     return (
       <Container text>
-        <Header as="h2">Create Team Name</Header>
+        <Header as="h2">Create a Team</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
             error={!!nameError}
             placeholder="Name"
-            label="Name"
+            label="Team Name"
             name="name"
             value={name}
             onChange={this.handleChange}
