@@ -34,3 +34,15 @@ mutation ($email: String!, $password: String!){
   }
 }
 `;
+
+export const createTeamMutation = gql`
+mutation ($name: String!){
+  createTeam(name: $name){
+    ok
+    errors{
+      path
+      message
+    }
+  }
+}
+`;

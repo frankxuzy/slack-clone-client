@@ -6,17 +6,15 @@ import {
   Container, Header, Form, Message,
 } from 'semantic-ui-react';
 
-import { userLogin } from '../query/query';
+import { createTeamMutation } from '../query/query';
 
-class Login extends React.Component {
+class CreateTeam extends React.Component {
   constructor(props) {
     super(props);
 
     extendObservable(this, {
-      email: '',
-      password: '',
-      emailError: '',
-      passwordError: '',
+      name: '',
+      nameError: '',
     });
   }
 
@@ -26,20 +24,17 @@ class Login extends React.Component {
   }
 
   handleSubmit = async () => {
-    this.emailError = '';
-    this.passwordError = '';
-    const { email, password } = this;
+    this.nameError = '';
+    const { name } = this;
     const { mutate, history } = this.props;
-    const loginResponse = await mutate({
-      variables: { email, password },
+    const createTeamResponse = await mutate({
+      variables: { name },
     });
     const {
-      errors, ok, token, refreshToken,
-    } = loginResponse.data.login;
+      errors, ok,
+    } = createTeamResponse.data.createTeam;
 
     if (ok) {
-      localStorage.setItem('token', token);
-      localStorage.setItem('refreshToken', refreshToken);
       history.push('/');
     } else {
       errors.forEach(({ path, message }) => {
@@ -50,34 +45,22 @@ class Login extends React.Component {
 
   render() {
     const {
-      email, password, emailError, passwordError,
+      name, nameError,
     } = this;
     const errorList = [];
-    if (emailError) {
-      errorList.push(emailError);
-    }
-    if (passwordError) {
-      errorList.push(passwordError);
+    if (nameError) {
+      errorList.push(nameError);
     }
     return (
       <Container text>
-        <Header as="h2">Login</Header>
+        <Header as="h2">Create Team Name</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
-            error={!!emailError}
-            placeholder="Email"
-            label="Email"
-            name="email"
-            value={email}
-            onChange={this.handleChange}
-          />
-          <Form.Input
-            error={!!passwordError}
-            placeholder="Password"
-            label="Password"
-            name="password"
-            value={password}
-            type="password"
+            error={!!nameError}
+            placeholder="Name"
+            label="Name"
+            name="name"
+            value={name}
             onChange={this.handleChange}
           />
           <Form.Button content="Submit" />
@@ -95,4 +78,4 @@ class Login extends React.Component {
   }
 }
 
-export default graphql(userLogin)(observer(Login));
+export default graphql(createTeamMutation)(observer(CreateTeam));
