@@ -20,3 +20,17 @@ mutation($username: String!, $email: String!, $password: String!){
   }
 }
 `
+
+export const userLogin = gql`
+mutation ($email: String!, $password: String!){
+  login(email: $email, password: $password){
+    ok
+    token
+    refreshToken
+    errors{
+      path
+      message
+    }
+  }
+}
+`

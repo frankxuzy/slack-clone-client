@@ -1,9 +1,11 @@
 import React from 'react'
+import {graphql} from 'react-apollo';
 import {extendObservable} from 'mobx'
 import {observer} from 'mobx-react'
 import { Container, Header, Form } from 'semantic-ui-react';
 
-export default observer(class Login extends React.Component {
+import {userLogin} from '../query/query'
+class Login extends React.Component {
   constructor(props){
     super(props)
 
@@ -18,11 +20,15 @@ export default observer(class Login extends React.Component {
     this[name] = value
   }
 
-  handleSubmit = () => {
+  handleSubmit = async () => {
     const {email, password} = this
-    console.log(email, password)
+    console.log(email, password, this.props)
+    const loginResponse = await this.props.mutate({
+      variables: {email, password}
+    })
+    console.log(loginResponse)
   }
-  
+
   render() {
     const {email,  password} = this
     return (
@@ -49,4 +55,6 @@ export default observer(class Login extends React.Component {
     </Container>
     ) 
   }
-})
+}
+
+export default graphql(userLogin)(observer(Login))
