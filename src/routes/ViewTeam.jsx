@@ -1,26 +1,64 @@
 import React from 'react';
 
-import AppLayout from '../components/AppLayout';
-import Channels from '../components/Channels';
-import Header from '../components/Header';
-import Input from '../components/Input';
-import Messages from '../components/Messages';
-import Teams from '../components/Teams';
-import Box from '../components/Box';
+// import AppLayout from '../components/AppLayout';
+// import Channels from '../components/Channels';
+// import Header from '../components/Header';
+// import Input from '../components/Input';
+// import Messages from '../components/Messages';
+// import Teams from '../components/Teams';
+// import Box from '../components/Box';
 
 export default () => (
-  <AppLayout>
-    <Teams className={Box}>Teams</Teams>
-    <Channels>Channels</Channels>
-    <Header>Header</Header>
-    <Messages>
+  <div className="app-layout">
+    <div className="teams box">Teams</div>
+    <div className="channels box">Channels</div>
+    <div className="header box">Header</div>
+    <div className="messages box">
       <ul className="message-list">
-        <li>1</li>
-        <li>2</li>
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
       </ul>
-    </Messages>
-    <Input>
-      <input type="text" placeholder="CSS Grid Layout Module" />
-    </Input>
-  </AppLayout>
+    </div>
+    <div className="input box">
+      <input type="text" placeholder="Have you tried the CSS Grid Layout Module?" />
+    </div>
+  </div>
 );
