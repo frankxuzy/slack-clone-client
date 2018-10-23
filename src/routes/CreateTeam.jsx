@@ -27,13 +27,19 @@ class CreateTeam extends React.Component {
     this.nameError = '';
     const { name } = this;
     const { mutate, history } = this.props;
-    const createTeamResponse = await mutate({
-      variables: { name },
-    });
+    let createTeamResponse = null;
+    try {
+      createTeamResponse = await mutate({
+        variables: { name },
+      });
+    } catch (err) {
+      history.push('/login');
+      return;
+    }
+
     const {
       errors, ok,
     } = createTeamResponse.data.createTeam;
-
     if (ok) {
       history.push('/');
     } else {
