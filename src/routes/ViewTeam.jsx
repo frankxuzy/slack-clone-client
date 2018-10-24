@@ -1,7 +1,7 @@
 import React from 'react';
 
 // import AppLayout from '../components/AppLayout';
-// import Channels from '../components/Channels';
+import Channels from '../components/Channels';
 // import Header from '../components/Header';
 // import Input from '../components/Input';
 // import Messages from '../components/Messages';
@@ -11,7 +11,11 @@ import React from 'react';
 export default () => (
   <div className="app-layout">
     <div className="teams box">Teams</div>
-    <div className="channels box">Channels</div>
+    <Channels
+      teamName="Team name"
+      channels={[{ id: 1, name: 'general' }, { id: 2, name: 'random' }]}
+      users={[{ id: 1, name: 'slackbot' }, { id: 2, name: 'Probio' }]}
+    />
     <div className="header box">Header</div>
     <div className="messages box">
       <ul className="message-list">

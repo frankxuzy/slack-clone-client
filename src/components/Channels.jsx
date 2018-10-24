@@ -1,8 +1,42 @@
+import React from 'react';
 import styled from 'styled-components';
-import Box from './Box';
 
-export default styled(Box)`
-    grid-column: 2;
-    grid-row: 1 / 4; 
-    background-color: #4e3a4c;
+const ChannelWrapper = styled.div`
+    color: #958993
 `;
+const channel = ({ id, name }) => (
+  <li key={`channel-${id}`}>
+    {name}
+  </li>
+);
+
+const user = ({ id, name }) => (
+  <li key={`user-${id}`}>
+    {name}
+  </li>
+);
+
+const Channels = ({
+  teamName, userName, channels, users,
+}) => (
+  <ChannelWrapper className="channels box">
+    <div>
+      {teamName}
+      {userName}
+    </div>
+    <div>
+      <ul>
+        <li>Channels</li>
+        {channels.map(channel)}
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li>Direct Messages</li>
+        {users.map(user)}
+      </ul>
+    </div>
+  </ChannelWrapper>
+);
+
+export default Channels;
