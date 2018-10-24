@@ -1,12 +1,10 @@
 import React from 'react';
 
-// import AppLayout from '../components/AppLayout';
 import Channels from '../components/Channels';
 import Header from '../components/Header';
 import SendMessage from '../components/SendMessage';
 // import Messages from '../components/Messages';
 import Teams from '../components/Teams';
-// import Box from '../components/Box';
 
 export default () => (
   <div className="app-layout">
