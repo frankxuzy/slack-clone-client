@@ -3,7 +3,7 @@ import React from 'react';
 // import AppLayout from '../components/AppLayout';
 import Channels from '../components/Channels';
 import Header from '../components/Header';
-import Input from '../components/Input';
+import SendMessage from '../components/SendMessage';
 // import Messages from '../components/Messages';
 import Teams from '../components/Teams';
 // import Box from '../components/Box';
@@ -61,6 +61,6 @@ export default () => (
         <li />
       </ul>
     </div>
-    <Input />
+    <SendMessage channelName="general" />
   </div>
 );
