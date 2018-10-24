@@ -1,7 +1,14 @@
+import React from 'react';
 import styled from 'styled-components';
-import Box from './Box';
 
-export default styled(Box)`
-    grid-column: 3;
-    grid-row: 1;
+const HeaderWrapper = styled.div`
+
 `;
+
+const Header = ({ channelName }) => (
+  <HeaderWrapper className="header box">
+    <h1>{`#${channelName}`}</h1>
+  </HeaderWrapper>
+);
+
+export default Header;

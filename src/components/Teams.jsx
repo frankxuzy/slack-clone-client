@@ -1,8 +1,19 @@
+import React from 'react';
 import styled from 'styled-components';
-import Box from './Box';
 
-export default styled(Box)`
-    grid-column: 1;
-    grid-row: 1 / 4;
-    background-color: #362234;
+const TeamsWrapper = styled.div`
+    color: #958993;
+    text-align: left;
 `;
+
+const team = ({ id, letter }) => (
+  <li key={`team-${id}`}>{letter}</li>
+);
+
+const Teams = ({ teams }) => (
+  <TeamsWrapper className="teams box">
+    <ul>{teams.map(team)}</ul>
+  </TeamsWrapper>
+);
+
+export default Teams;

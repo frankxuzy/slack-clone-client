@@ -1,9 +1,13 @@
+import React from 'react';
 import styled from 'styled-components';
-import Box from './Box';
 
-export default styled(Box)`
-  width: 100%;
-  padding: 1em;
-  outline: none;
-  border: 1px solid #f2f2f2;
+const InputWrapper = styled.div`
 `;
+
+const Input = () => (
+  <InputWrapper className="input box">
+    <input type="text" placeholder="Have you tried the CSS Grid Layout Module?" />
+  </InputWrapper>
+);
+
+export default Input;
