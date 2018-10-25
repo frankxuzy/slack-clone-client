@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ApolloClient from 'apollo-client';
-import { ApolloLink, from } from 'apollo-link';
+import { ApolloLink } from 'apollo-link';
 import { ApolloProvider } from 'react-apollo';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { setContext } from 'apollo-link-context';
@@ -29,25 +29,26 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-// const addDatesLink = new ApolloLink((operation, forward) => {
-//   return forward(operation).map((response) => {
-//     const token = response.headers.get('x-token');
-//     const refreshToken = response.headers.get('x-refresh-token');
-//     if (token) {
-//       localStorage.setItem('token', token);
-//     }
-//     if (refreshToken) {
-//       localStorage.setItem('refreshToken', refreshToken);
-//     }
-//     return response;
-//   });
-// });
+const afterwareLink = new ApolloLink((operation, forward) => {
+  const { headers } = operation.getContext();
+  if (headers) {
+    const token = headers.get('x-token');
+    const refreshToken = headers.get('x-refresh-token');
+    if (token) {
+      localStorage.setItem('token', token);
+    }
+    if (refreshToken) {
+      localStorage.setItem('refreshToken', refreshToken);
+    }
+  }
+  return forward(operation);
+});
+
+// concat link, middleware link and afterware link
+const link = afterwareLink.concat(authLink.concat(httpLink));
 
 const client = new ApolloClient({
-  link: from([
-    authLink.concat(httpLink),
-    // addDatesLink.concat(httpLink),
-  ]),
+  link,
   cache: new InMemoryCache(),
 });
 
