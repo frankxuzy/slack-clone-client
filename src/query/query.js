@@ -46,3 +46,16 @@ mutation ($name: String!){
   }
 }
 `;
+
+export const allTeamsQuery = gql`
+{
+  allTeams{
+    id
+    name
+    channels {
+      id
+      name
+    }
+  }
+}
+`;
