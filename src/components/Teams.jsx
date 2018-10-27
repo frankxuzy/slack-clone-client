@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const TeamsWrapper = styled.div`
     color: #958993;
@@ -32,7 +33,7 @@ const TeamListItem = styled.li`
 `;
 
 const team = ({ id, letter }) => (
-  <TeamListItem key={`team-${id}`}>{letter}</TeamListItem>
+  <Link to={`/view-team/${id}`}><TeamListItem key={`team-${id}`}>{letter}</TeamListItem></Link>
 );
 
 const Teams = ({ teams }) => (

@@ -12,16 +12,19 @@ const SideBar = ({ data: { loading, allTeams }, currentTeamId }) => {
     return null;
   }
   const { user } = decodeToken();
-  const teamIndex = R.findIndex(R.propEq('id', currentTeamId))(allTeams);
+  const teamIndex = currentTeamId ? R.findIndex(R.propEq('id', parseInt(currentTeamId, 10)))(allTeams) : 0;
   const team = allTeams[teamIndex];
 
   return [
-    <Teams teams={allTeams.map(t => ({
-      id: t.id,
-      letter: t.name.charAt(0).toUpperCase(),
-    }))}
+    <Teams
+      key="teamskey"
+      teams={allTeams.map(t => ({
+        id: t.id,
+        letter: t.name.charAt(0).toUpperCase(),
+      }))}
     />,
     <Channels
+      key="channelskey"
       teamName={team.name}
       userName={user.username}
       channels={team.channels}
