@@ -39,6 +39,9 @@ export const createTeamMutation = gql`
 mutation ($name: String!){
   createTeam(name: $name){
     ok
+    team {
+      id
+    }
     errors{
       path
       message

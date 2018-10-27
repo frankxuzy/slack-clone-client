@@ -38,10 +38,10 @@ class CreateTeam extends React.Component {
     }
 
     const {
-      errors, ok,
+      errors, ok, team,
     } = createTeamResponse.data.createTeam;
     if (ok) {
-      history.push('/');
+      history.push(`/view-team/${team.id}`);
     } else {
       errors.forEach(({ path, message }) => {
         this[`${path}Error`] = message;
