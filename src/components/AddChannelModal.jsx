@@ -5,7 +5,8 @@ import {
 } from 'semantic-ui-react';
 import { compose, graphql } from 'react-apollo';
 
-import { createChannelMutation } from '../query/query';
+import findIndex from 'lodash/findIndex';
+import { createChannelMutation, allTeamsQuery } from '../query/query';
 
 const AddChannelModal = ({
   open,
@@ -46,10 +47,19 @@ export default compose(
     mapPropsToValues: () => ({ name: '' }),
 
     handleSubmit: async (values, { props: { onClose, teamId, mutate }, setSubmitting }) => {
-      const response = await mutate({
+      await mutate({
         variables: { team_id: teamId, name: values.name },
+        update: (proxy, { data: { createChannel } }) => {
+          const { ok, channel } = createChannel;
+          if (!ok) {
+            return;
+          }
+          const data = proxy.readQuery({ query: allTeamsQuery });
+          const currentIdx = findIndex(data.allTeams, ['id', teamId]);
+          data.allTeams[currentIdx].channels.push(channel);
+          proxy.writeQuery({ query: allTeamsQuery, data });
+        },
       });
-      console.log(response);
       // prevent button been click more than once
       setSubmitting(false);
       onClose();
