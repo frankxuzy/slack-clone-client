@@ -3,13 +3,14 @@ import { withFormik } from 'formik';
 import {
   Modal, Input, Form, Button,
 } from 'semantic-ui-react';
+import { compose, graphql } from 'react-apollo';
+
+import { createChannelMutation } from '../query/query';
 
 const AddChannelModal = ({
   open,
   onClose,
   values,
-  touched,
-  errors,
   handleChange,
   handleBlur,
   handleSubmit,
@@ -30,7 +31,7 @@ const AddChannelModal = ({
         </Form.Field>
         <Form.Field>
           <Button.Group attached="bottom">
-            <Button disabled={isSubmitting} onClick={handleSubmit}>Create Channel</Button>
+            <Button type="submit" disabled={isSubmitting} onClick={handleSubmit}>Create Channel</Button>
             <Button disabled={isSubmitting} onClick={onClose}>Cancel</Button>
           </Button.Group>
 
@@ -39,15 +40,20 @@ const AddChannelModal = ({
     </Modal.Content>
   </Modal>
 );
-export default withFormik({
-  mapPropsToValues: () => ({ name: '' }),
+export default compose(
+  graphql(createChannelMutation),
+  withFormik({
+    mapPropsToValues: () => ({ name: '' }),
 
-  handleSubmit: (values, { props, setSubmitting }) => {
-    console.log(values);
-    console.log('submitting...');
-    // prevent button been click more than once
-    setSubmitting(false);
-  },
-
-  displayName: 'BasicForm',
-})(AddChannelModal);
+    handleSubmit: async (values, { props: { onClose, teamId, mutate }, setSubmitting }) => {
+      const response = await mutate({
+        variables: { team_id: teamId, name: values.name },
+      });
+      console.log(response);
+      // prevent button been click more than once
+      setSubmitting(false);
+      onClose();
+    },
+    displayName: 'BasicForm',
+  }),
+)(AddChannelModal);

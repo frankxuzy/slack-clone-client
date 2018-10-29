@@ -62,3 +62,9 @@ export const allTeamsQuery = gql`
   }
 }
 `;
+
+export const createChannelMutation = gql`
+  mutation ($team_id: Int!, $name: String!){
+    createChannel(team_id: $team_id, name: $name)
+}
+`;

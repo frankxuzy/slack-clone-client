@@ -48,6 +48,7 @@ class SideBar extends React.Component {
         users={[{ id: 1, name: 'slackbot' }, { id: 2, name: 'Probio' }]}
       />,
       <AddChannelModal
+        teamId={team.id}
         onClose={this.handleCloseChannelModal}
         key="sidebar-add-channel-modal"
         open={isAddChannelOn}
