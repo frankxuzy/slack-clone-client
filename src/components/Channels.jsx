@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Icon } from 'semantic-ui-react';
 
 const TeamNameHeader = styled.h1`
   color: #fff;
@@ -49,7 +50,7 @@ const user = ({ id, name }) => (
 );
 
 const Channels = ({
-  teamName, userName, channels, users,
+  teamName, userName, channels, users, onAddChannelClick,
 }) => (
   <ChannelWrapper className="channels box">
     <div>
@@ -58,7 +59,10 @@ const Channels = ({
     </div>
     <div>
       <SideBarList>
-        <li>Channels</li>
+        <li>
+          Channels
+          <Icon name="add circle" onClick={onAddChannelClick} />
+        </li>
         {channels.map(channel)}
       </SideBarList>
     </div>
