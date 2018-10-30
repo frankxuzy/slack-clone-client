@@ -7,25 +7,31 @@ import AddChannelModel from '../components/AddChannelModel';
 import InvitePeopleModel from '../components/InvitePeopleModel';
 
 class SideBar extends React.Component {
-  state = {
-    isAddChannelOn: false,
-    isInvitePeopleOn: false,
+  constructor(props) {
+    super(props);
+    this.state = {
+      isAddChannelOn: false,
+      isInvitePeopleOn: false,
+    };
+    this.toggleAddChannelClick = this.toggleAddChannelClick.bind(this);
+    this.toggleInvitePeopleClick = this.toggleInvitePeopleClick.bind(this);
   }
 
-  handleAddChannelClick = () => {
-    this.setState({ isAddChannelOn: true });
+
+  toggleAddChannelClick = (e) => {
+    const { isAddChannelOn } = this.state;
+    if (e) {
+      e.preventDefault();
+    }
+    this.setState({ isAddChannelOn: !isAddChannelOn });
   }
 
-  handleInvitePeopleClick = () => {
-    this.setState({ isInvitePeopleOn: true });
-  }
-
-  handleCloseChannelModel = () => {
-    this.setState({ isAddChannelOn: false });
-  }
-
-  handleCloseInvitePeople = () => {
-    this.setState({ isInvitePeopleOn: false });
+  toggleInvitePeopleClick = (e) => {
+    const { isInvitePeopleOn } = this.state;
+    if (e) {
+      e.preventDefault();
+    }
+    this.setState({ isInvitePeopleOn: !isInvitePeopleOn });
   }
 
   render() {
@@ -40,8 +46,8 @@ class SideBar extends React.Component {
       />,
       <Channels
         key="channelskey"
-        onAddChannelClick={this.handleAddChannelClick}
-        onInvitePeopleClick={this.handleInvitePeopleClick}
+        onAddChannelClick={this.toggleAddChannelClick}
+        onInvitePeopleClick={this.toggleInvitePeopleClick}
         teamName={team.name}
         teamId={team.id}
         userName={user.username}
@@ -50,13 +56,13 @@ class SideBar extends React.Component {
       />,
       <AddChannelModel
         teamId={team.id}
-        onClose={this.handleCloseChannelModel}
+        onClose={this.toggleAddChannelClick}
         key="sidebar-add-channel-model"
         open={isAddChannelOn}
       />,
       <InvitePeopleModel
         teamId={team.id}
-        onClose={this.handleCloseInvitePeople}
+        onClose={this.toggleInvitePeopleClick}
         key="sidebar-invite-people-model"
         open={isInvitePeopleOn}
       />,
