@@ -31,7 +31,8 @@ class SideBar extends React.Component {
     const teamIndex = currentTeamId ? R.findIndex(R.propEq('id', parseInt(currentTeamId, 10)))(allTeams) : 0;
     const team = allTeams[teamIndex];
     const { isAddChannelOn } = this.state;
-    return [
+    // need to add default sidebar
+    return (allTeams.length !== 0) && [
       <Teams
         key="teamskey"
         teams={allTeams.map(t => ({
@@ -43,6 +44,7 @@ class SideBar extends React.Component {
         key="channelskey"
         onAddChannelClick={this.handleAddChannelClick}
         teamName={team.name}
+        teamId={team.id}
         userName={user.username}
         channels={team.channels}
         users={[{ id: 1, name: 'slackbot' }, { id: 2, name: 'Probio' }]}
