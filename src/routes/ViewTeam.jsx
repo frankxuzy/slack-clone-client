@@ -33,9 +33,9 @@ const ViewTeam = ({ data: { loading, allTeams }, match: { params: { teamId, chan
         }))}
         team={currentTeam}
       />
-      <Header channelName={currentChannel.name} />
-      <MessageBox channelId={currentChannel.id} />
-      <SendMessage channelName={currentChannel.name} />
+      {currentChannel && <Header channelName={currentChannel.name} /> }
+      {currentChannel && <MessageBox channelId={currentChannel.id} /> }
+      {currentChannel && <SendMessage channelName={currentChannel.name} /> }
     </div>
   );
 };
