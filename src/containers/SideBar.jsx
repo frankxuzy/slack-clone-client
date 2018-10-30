@@ -1,8 +1,5 @@
 import React from 'react';
-import { graphql } from 'react-apollo';
-import * as R from 'ramda';
 
-import { allTeamsQuery } from '../query/query';
 import Channels from '../components/Channels';
 import Teams from '../components/Teams';
 import { decodeToken } from '../utils';
@@ -22,23 +19,14 @@ class SideBar extends React.Component {
   }
 
   render() {
-    const { data: { loading, allTeams }, currentTeamId } = this.props;
-
-    if (loading) {
-      return null;
-    }
+    const { teams, team } = this.props;
     const { user } = decodeToken();
-    const teamIndex = currentTeamId ? R.findIndex(R.propEq('id', parseInt(currentTeamId, 10)))(allTeams) : 0;
-    const team = allTeams[teamIndex];
     const { isAddChannelOn } = this.state;
     // need to add default sidebar
-    return (allTeams.length !== 0) && [
+    return (teams.length !== 0) && [
       <Teams
         key="teamskey"
-        teams={allTeams.map(t => ({
-          id: t.id,
-          letter: t.name.charAt(0).toUpperCase(),
-        }))}
+        teams={teams}
       />,
       <Channels
         key="channelskey"
@@ -59,4 +47,4 @@ class SideBar extends React.Component {
   }
 }
 
-export default graphql(allTeamsQuery)(SideBar);
+export default SideBar;
