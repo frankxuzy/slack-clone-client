@@ -8,13 +8,15 @@ import SideBar from '../containers/SideBar';
 // import Messages from '../components/Messages';
 import { allTeamsQuery } from '../query/query';
 
-const ViewTeam = ({ data: { loading, allTeams }, match: { params: { teamId } } }) => {
+const ViewTeam = ({ data: { loading, allTeams }, match: { params: { teamId, channelId } } }) => {
   if (loading) {
     return null;
   }
 
   const teamIndex = teamId ? findIndex(allTeams, ['id', parseInt(teamId, 10)]) : 0;
   const currentTeam = allTeams[teamIndex];
+  const channelIndex = channelId ? findIndex(currentTeam.channels, ['id', parseInt(channelId, 10)]) : 0;
+  const currentChannel = currentTeam.channels[channelIndex];
   return (
     <div className="app-layout">
       <SideBar
@@ -24,14 +26,14 @@ const ViewTeam = ({ data: { loading, allTeams }, match: { params: { teamId } } }
         }))}
         team={currentTeam}
       />
-      <Header channelName="general" />
-      <div className="messages box">
+      <Header channelName={currentChannel.name} />
+      <div className="messages box" channelId={currentChannel.id}>
         <ul className="message-list">
           <li />
           <li />
         </ul>
       </div>
-      <SendMessage channelName="general" />
+      <SendMessage channelName={currentChannel.name} />
     </div>
   );
 };
