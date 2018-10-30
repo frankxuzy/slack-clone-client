@@ -53,7 +53,7 @@ const user = ({ id, name }) => (
 );
 
 const Channels = ({
-  teamName, userName, channels, users, onAddChannelClick, teamId,
+  teamName, userName, channels, users, onAddChannelClick, teamId, onInvitePeopleClick,
 }) => (
   <ChannelWrapper className="channels box">
     <div>
@@ -74,6 +74,11 @@ const Channels = ({
         <li>Direct Messages</li>
         {users.map(user)}
       </SideBarList>
+    </div>
+    <div>
+      <a href="#invite-people" onClick={onInvitePeopleClick}>
+        + Invite People
+      </a>
     </div>
   </ChannelWrapper>
 );

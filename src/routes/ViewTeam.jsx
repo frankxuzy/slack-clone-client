@@ -5,6 +5,7 @@ import findIndex from 'lodash/findIndex';
 import Header from '../components/Header';
 import SendMessage from '../components/SendMessage';
 import SideBar from '../containers/SideBar';
+import MessageBox from '../components/MessageBox';
 // import Messages from '../components/Messages';
 import { allTeamsQuery } from '../query/query';
 
@@ -27,12 +28,7 @@ const ViewTeam = ({ data: { loading, allTeams }, match: { params: { teamId, chan
         team={currentTeam}
       />
       <Header channelName={currentChannel.name} />
-      <div className="messages box" channelId={currentChannel.id}>
-        <ul className="message-list">
-          <li />
-          <li />
-        </ul>
-      </div>
+      <MessageBox channelId={currentChannel.id} />
       <SendMessage channelName={currentChannel.name} />
     </div>
   );

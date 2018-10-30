@@ -8,7 +8,7 @@ import { compose, graphql } from 'react-apollo';
 import findIndex from 'lodash/findIndex';
 import { createChannelMutation, allTeamsQuery } from '../query/query';
 
-const AddChannelModal = ({
+const AddChannelModel = ({
   open,
   onClose,
   values,
@@ -77,4 +77,4 @@ export default compose(
     },
     displayName: 'BasicForm',
   }),
-)(AddChannelModal);
+)(AddChannelModel);
