@@ -10,24 +10,30 @@ import MessageBox from '../components/MessageBox';
 // import Messages from '../components/Messages';
 import { allTeamsQuery } from '../query/query';
 
-const ViewTeam = ({ data: { loading, allTeams }, match: { params: { teamId, channelId } } }) => {
+const ViewTeam = ({
+  data: { loading, allTeams, inviteTeams },
+  match: { params: { teamId, channelId } },
+}) => {
   if (loading) {
     return null;
+  }
+  const teams = [...allTeams, ...inviteTeams];
+  if (!teams.length) {
+    return (<Redirect to="/create-team" />);
   }
 
   const teamIdInt = parseInt(teamId, 10);
   const channelIdInt = parseInt(channelId, 10);
-  if (!allTeams.length) {
-    return (<Redirect to="/create-team" />);
-  }
-  const teamIndex = teamIdInt ? findIndex(allTeams, ['id', teamIdInt]) : 0;
-  const currentTeam = allTeams[teamIndex];
+  const teamIndex = teamIdInt ? findIndex(teams, ['id', teamIdInt]) : 0;
+  const currentTeam = teamIndex === -1 ? teams[0] : teams[teamIndex];
   const channelIndex = channelIdInt ? findIndex(currentTeam.channels, ['id', channelIdInt]) : 0;
-  const currentChannel = currentTeam.channels[channelIndex];
+  const currentChannel = channelIndex === -1
+    ? currentTeam.channels[0]
+    : currentTeam.channels[channelIndex];
   return (
     <div className="app-layout">
       <SideBar
-        teams={allTeams.map(t => ({
+        teams={teams.map(t => ({
           id: t.id,
           letter: t.name.charAt(0).toUpperCase(),
         }))}
