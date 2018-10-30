@@ -1,6 +1,7 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import findIndex from 'lodash/findIndex';
+import { Redirect } from 'react-router-dom';
 
 import Header from '../components/Header';
 import SendMessage from '../components/SendMessage';
@@ -14,6 +15,9 @@ const ViewTeam = ({ data: { loading, allTeams }, match: { params: { teamId, chan
     return null;
   }
 
+  if (!allTeams.length) {
+    return (<Redirect to="/create-team" />);
+  }
   const teamIndex = teamId ? findIndex(allTeams, ['id', parseInt(teamId, 10)]) : 0;
   const currentTeam = allTeams[teamIndex];
   const channelIndex = channelId ? findIndex(currentTeam.channels, ['id', parseInt(channelId, 10)]) : 0;
