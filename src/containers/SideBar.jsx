@@ -50,22 +50,27 @@ class SideBar extends React.Component {
         onInvitePeopleClick={this.toggleInvitePeopleClick}
         teamName={team.name}
         teamId={team.id}
+        showInvite={user.id === team.owner}
         userName={user.username}
         channels={team.channels}
         users={[{ id: 1, name: 'slackbot' }, { id: 2, name: 'Probio' }]}
       />,
-      <AddChannelModel
-        teamId={team.id}
-        onClose={this.toggleAddChannelClick}
-        key="sidebar-add-channel-model"
-        open={isAddChannelOn}
-      />,
-      <InvitePeopleModel
-        teamId={team.id}
-        onClose={this.toggleInvitePeopleClick}
-        key="sidebar-invite-people-model"
-        open={isInvitePeopleOn}
-      />,
+      (user.id === team.owner && (
+        <AddChannelModel
+          teamId={team.id}
+          onClose={this.toggleAddChannelClick}
+          key="sidebar-add-channel-model"
+          open={isAddChannelOn}
+        />
+      )),
+      (user.id === team.owner && (
+        <InvitePeopleModel
+          teamId={team.id}
+          onClose={this.toggleInvitePeopleClick}
+          key="sidebar-invite-people-model"
+          open={isInvitePeopleOn}
+        />
+      )),
     ];
   }
 }

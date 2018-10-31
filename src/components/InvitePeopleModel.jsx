@@ -47,7 +47,10 @@ export default compose(
   graphql(addTeamMemberMutation),
   withFormik({
     mapPropsToValues: () => ({ email: '' }),
-    handleSubmit: async (values, { props: { onClose, teamId, mutate }, setSubmitting, setErrors }) => {
+    handleSubmit: async (
+      values,
+      { props: { onClose, teamId, mutate }, setSubmitting, setErrors },
+    ) => {
       const resp = await mutate({
         variables: { teamId, email: values.email },
       });

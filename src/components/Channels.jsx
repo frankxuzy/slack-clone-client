@@ -53,7 +53,7 @@ const user = ({ id, name }) => (
 );
 
 const Channels = ({
-  teamName, userName, channels, users, onAddChannelClick, teamId, onInvitePeopleClick,
+  teamName, userName, channels, users, onAddChannelClick, teamId, onInvitePeopleClick, showInvite,
 }) => (
   <ChannelWrapper className="channels box">
     <div>
@@ -64,7 +64,7 @@ const Channels = ({
       <SideBarList>
         <li>
           Channels
-          <Icon name="add circle" onClick={onAddChannelClick} />
+          {showInvite && (<Icon name="add circle" onClick={onAddChannelClick} />)}
         </li>
         {channels.map(c => channel(c, teamId))}
       </SideBarList>
@@ -75,11 +75,13 @@ const Channels = ({
         {users.map(user)}
       </SideBarList>
     </div>
+    {showInvite && (
     <div>
       <a href="#invite-people" onClick={onInvitePeopleClick}>
         + Invite People
       </a>
     </div>
+    )}
   </ChannelWrapper>
 );
 
