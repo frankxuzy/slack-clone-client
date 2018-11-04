@@ -115,3 +115,16 @@ query($channel_id: Int!){
   }
 }
 `;
+
+export const newChannelMessageSub = gql`
+subscription ($channel_id: Int!) {
+  newChannelMessage(channel_id: $channel_id) {
+    id
+    text
+    user {
+      username
+    }
+    created_at
+  }
+}
+`;
