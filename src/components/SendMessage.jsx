@@ -26,7 +26,7 @@ const SendMessage = ({
         }
       }}
       name="message"
-      values={values.message}
+      value={values.message}
       onChange={handleChange}
       onBlur={handleBlur}
       placeholder={`Message #${channelName}`}
@@ -39,7 +39,7 @@ export default (compose(
   withFormik({
     mapPropsToValues: () => ({ message: '' }),
     handleSubmit: async (values, { props: { channelId, mutate }, setSubmitting, resetForm }) => {
-      if (!values.message || values.message.trim()) {
+      if (!values.message.trim()) {
         setSubmitting(false);
         return;
       }
