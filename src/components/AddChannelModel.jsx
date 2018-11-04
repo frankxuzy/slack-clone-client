@@ -49,17 +49,17 @@ export default compose(
     handleSubmit: async (values, { props: { onClose, teamId, mutate }, setSubmitting }) => {
       await mutate({
         variables: { team_id: teamId, name: values.name },
-        optimisticResponse: {
-          createChannel: {
-            __typename: 'Mutation',
-            ok: true,
-            channel: {
-              __typename: 'Channel',
-              id: -1,
-              name: values.name,
-            },
-          },
-        },
+        // optimisticResponse: {
+        //   createChannel: {
+        //     __typename: 'Mutation',
+        //     ok: true,
+        //     channel: {
+        //       __typename: 'Channel',
+        //       id: -1,
+        //       name: values.name,
+        //     },
+        //   },
+        // },
         update: (proxy, { data: { createChannel } }) => {
           const { ok, channel } = createChannel;
           if (!ok) {

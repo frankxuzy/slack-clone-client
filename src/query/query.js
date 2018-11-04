@@ -96,3 +96,22 @@ mutation($email: String!, $teamId: Int!) {
   }
 }
 `;
+
+export const createMessageMutation = gql`
+mutation($text: String!, $channel_id: Int!) {
+  createMessage(text: $text, channel_id: $channel_id)
+}
+`;
+
+export const messagesQuery = gql`
+query($channel_id: Int!){
+  messages(channel_id: $channel_id) {
+    id
+    text
+    created_at
+    user{
+      username
+    }
+  }
+}
+`;

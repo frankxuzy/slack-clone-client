@@ -41,7 +41,12 @@ const ViewTeam = ({
       />
       {currentChannel && <Header channelName={currentChannel.name} /> }
       {currentChannel && <MessageBox channelId={currentChannel.id} /> }
-      {currentChannel && <SendMessage channelName={currentChannel.name} /> }
+      {currentChannel && (
+      <SendMessage
+        channelId={currentChannel.id}
+        channelName={currentChannel.name}
+      />
+      ) }
     </div>
   );
 };
